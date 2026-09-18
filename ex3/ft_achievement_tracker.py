@@ -23,9 +23,17 @@ players: dict[str, set[str]] = {
                             }
 
 
+def the_items(inv: dict[str, set[str]]) -> list[tuple[str, set[str]]]:
+    result = []
+    for key in inv:
+        value = inv[key]
+        result.append((key, value))
+    return result
+
+
 def main() -> None:
     print("=== Achievement Tracker System ===")
-    for player, achievement in players.items():
+    for player, achievement in the_items(players):
         print(
             f"Player {player}: {achievement}"
             )
@@ -39,7 +47,7 @@ def main() -> None:
     common: set[str] = l_set.intersection(*(players[i] for i in players))
     print(f"Common: {common}")
     print("")
-    for name, val in players.items():
+    for name, val in the_items(players):
         unique: set[str] = val.difference(*(
             players[other] for other in players if other != name
             ))
